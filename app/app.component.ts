@@ -1,43 +1,34 @@
 import { Component } from '@angular/core';
+import { SimpsonDetailComponent } from './simpson-detail.component';
+import { Simpson } from './simpson';
 
-export class Hero{
-  id: number;
-  name: string;
-}
 
-const HEROES: Hero[] = [
-  { id: 11, name: 'Mr. Nice' },
-  { id: 12, name: 'Narco' },
-  { id: 13, name: 'Bombasto' },
-  { id: 14, name: 'Celeritas' },
-  { id: 15, name: 'Magneta' },
-  { id: 16, name: 'RubberMan' },
-  { id: 17, name: 'Dynama' },
-  { id: 18, name: 'Dr IQ' },
-  { id: 19, name: 'Magma' },
-  { id: 20, name: 'Tornado' }
+const SIMPSONS: Simpson[] = [
+  { id: 11, name: 'Marge' },
+  { id: 12, name: 'Bart' },
+  { id: 13, name: 'Moe' },
+  { id: 14, name: 'Nelson' },
+  { id: 15, name: 'Lisa' },
+  { id: 16, name: 'Maggie' },
+  { id: 17, name: 'Lenny' },
+  { id: 18, name: 'Apu' },
+  { id: 19, name: 'Milhouse' },
+  { id: 20, name: 'Homer' }
 ];
 
 @Component({
   selector: 'my-app',
   template:`
   <h1>{{title}}</h1>
-     <h2>My Heroes</h2>
+     <h2>The Simpsons</h2>
      <ul class="heroes">
-       <li *ngFor="let hero of heroes"
-         [class.selected]="hero === selectedHero"
-         (click)="onSelect(hero)">
-         <span class="badge">{{hero.id}}</span> {{hero.name}}
+       <li *ngFor="let simpson of simpsons"
+         [class.selected]="simpson === selectedSimpson"
+         (click)="onSelect(simpson)">
+         <span class="badge">{{simpson.id}}</span> {{simpson.name}}
        </li>
      </ul>
-     <div *ngIf="selectedHero">
-       <h2>{{selectedHero.name}} details!</h2>
-       <div><label>id: </label>{{selectedHero.id}}</div>
-       <div>
-         <label>name: </label>
-         <input [(ngModel)]="selectedHero.name" placeholder="name"/>
-       </div>
-     </div>`,
+     <my-simpson-detail [simpson]="selectedSimpson"></my-simpson-detail>`,
 styles: [`
   .selected {
     background-color: #CFD8DC !important;
@@ -86,13 +77,14 @@ styles: [`
     margin-right: .8em;
     border-radius: 4px 0 0 4px;
   }
-`]
+`],
+directives: [SimpsonDetailComponent]
   })
 
 export class AppComponent {
-  title = 'Tour of Heroes';
-  heroes = HEROES;
-  selectedHero: Hero;
+  title = 'Tour of Simpsons';
+  simpsons = SIMPSONS;
+  selectedSimpson: Simpson;
 
-  onSelect(hero: Hero) { this.selectedHero = hero; }
+  onSelect(simpson: Simpson) { this.selectedSimpson = simpson; }
 }
